@@ -16,7 +16,7 @@ public class mysqlLink {
             e.printStackTrace();
         }
         try{
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cinema","root","Sansui91200.");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cinema","root","gfnb");
             System.out.println("数据库连接成功,哈哈！！");
         }catch (SQLException e){
             e.printStackTrace();
