@@ -1,10 +1,13 @@
 package Menu;
 import java.util.*;
+import User.User;
 /**
  * Created by diandian on 2019/7/6.
  */
 //主页面
 public class MainMenu {
+    static User user = new User();
+
     Scanner input = new Scanner(System.in);
     public void menu(){
         int choice;
@@ -31,11 +34,14 @@ public class MainMenu {
     }
     public void loginmenu(){
         System.out.println("这是登陆页面");
-        next();
+        if(user.login())
+            next();
+
     }
     public void registermenu(){
         System.out.println("这是注册页面");
-        next();
+        if(user.register())
+            next();
 
     }
     public void next(){
@@ -70,7 +76,7 @@ public class MainMenu {
 
             } else if (temp == 2) {
                 System.out.println("欢迎您，亲爱的顾客朋友，请选择您的服务");
-                System.out.println("1.订票\t2.退票\t3.改签\t4.查询\t5.退出");
+                System.out.println("1.订票\t2.退票\t3.改签\t4.查看放映信息\t5.查询\t6.退出");
                 int temp2 = input.nextInt();
                 switch (temp2){
                     case 1:
@@ -82,6 +88,8 @@ public class MainMenu {
                     case 4:
                         break;
                     case 5:
+                        break;
+                    case 6:
                         return;
                     default:
                         System.out.println("输入错误，请重新输入");
