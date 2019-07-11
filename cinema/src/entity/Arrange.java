@@ -1,6 +1,6 @@
 package entity;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Arrange {
     private int Aud_id;
@@ -8,12 +8,12 @@ public class Arrange {
     private int Movie_id;
     private int Line;
     private int Row;
-    private Date Arrange_time;
+    private Timestamp Arrange_time;
 
     public Arrange() {
     }
 
-    public Arrange(int aud_id, int hall_id, int movie_id, int line, int row, Date arrange_time) {
+    public Arrange(int aud_id, int hall_id, int movie_id, int line, int row, Timestamp arrange_time) {
         Aud_id = aud_id;
         Hall_id = hall_id;
         Movie_id = movie_id;
@@ -62,11 +62,11 @@ public class Arrange {
         Row = row;
     }
 
-    public Date getArrange_time() {
+    public Timestamp getArrange_time() {
         return Arrange_time;
     }
 
-    public void setArrange_time(Date arrange_time) {
+    public void setArrange_time(Timestamp arrange_time) {
         Arrange_time = arrange_time;
     }
 }

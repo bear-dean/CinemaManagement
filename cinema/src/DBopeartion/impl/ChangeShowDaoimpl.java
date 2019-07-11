@@ -15,7 +15,7 @@ public class ChangeShowDaoimpl extends BaseDao implements ChangeShowDao {
     private ResultSet rs = null; // 用户保存查询到的结果集
 
     @Override
-    public int updateShow(String sql, String[] param) {
+    public int updateShow(String sql, Object[] param) {
         int count=super.executeSQL(sql,param);
         return count;
     }

@@ -5,6 +5,6 @@ import entity.Movie;
 /**
  * @author Bear  管理员添加、删除影片*/
 public interface ChangeMovie {
-    public Movie addMovie();
-    public Movie delMovie();
+    public void addMovie();
+    public void delMovie();
 }

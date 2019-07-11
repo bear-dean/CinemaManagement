@@ -1,5 +1,8 @@
 package DBopeartion;
 
+import java.util.List;
+import entity.Movie;
+
 public interface ChangeMovieDao {
     /**
      * 添加影片*/
@@ -10,4 +13,6 @@ public interface ChangeMovieDao {
     /**
      * 更新影片*/
     public abstract int updateMovie(String sql,Object[] param);
+
+    public abstract List<Movie> getAllMovie();
 }

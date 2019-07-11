@@ -5,7 +5,7 @@ import entity.Show;
 /**
  * @author Bear  管理员添加、删除、修改场次*/
 public interface ChangeShow {
-    public Show addShow();
-    public Show delShow();
-    public Show changeShow();
+    public void addShow();
+    public void delShow();
+    public void changeShow();
 }

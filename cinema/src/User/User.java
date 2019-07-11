@@ -2,8 +2,11 @@ package User;
 
 import Authority.impl.DefaultCustomer;
 import Authority.impl.DefaultManage;
+import DBopeartion.UserDao;
+import DBopeartion.impl.UserDaoimpl;
 import entity.Auident;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -12,10 +15,18 @@ import java.util.Scanner;
 public class User {
     private Role role = null;
     HashMap<String,Auident> map=new HashMap<String,Auident>();
+    public UserDao  uerdao= new UserDaoimpl();
 
     //数据库中读取观众信息
-    boolean init(){
-
+    public boolean init(){
+        List <Auident> auidentList = uerdao.getAllUser();
+        for(int i=0;i<auidentList.size();i++){
+            Auident auident = new Auident();
+            auident = auidentList.get(i);
+            map.put(auident.getAud_name(),auident);
+        }
+        if(map.size()>0)
+            return true;
         return false;
     }
     /**
@@ -30,20 +41,20 @@ public class User {
         System.out.println("请输入密码");
         String password = scanner.next();
         //管理员登录
-        if(username.equals("admin")&&password.equals("admin")){
+        if(!map.containsKey(username)) {
+            System.out.println("用户名不存在！");
+            return false;
+        } else if(map.get(username).getAid_password().equals(password)&&map.get(username).getAud_type().equals("Manger")){
             role.setDescription("管理员");
-            DefaultManage admin = new DefaultManage();
+            DefaultManage admin = new DefaultManage(map.get(username).getAud_id());
             role.setMange(admin);
-        }else if(username.equals("admin")&&!password.equals("admin")){
+            return true;
+        }else if(map.get(username).getAud_type().equals("Manger")){
             System.out.println("管理员密码错误");
             return false;
         }
         //用户登录
-        if(!map.containsKey(username))
-        {
-            System.out.println("用户名不存在！");
-            return false;
-        }else if(!map.get(username).getAid_password().equals(password))
+        else if(!map.get(username).getAid_password().equals(password))
         {
             System.out.println("密码错误！重新输入");
             password=scanner.nextLine();
@@ -55,17 +66,20 @@ public class User {
                     return false;
                 }else {
                     role.setDescription("用户");
-                    DefaultCustomer audience = new DefaultCustomer();
+                    DefaultCustomer audience = new DefaultCustomer(map.get(username).getAud_id());
                     role.setNormal(audience);
                     return true;}
             }else {
                 role.setDescription("用户");
-                DefaultCustomer audience = new DefaultCustomer();
+                DefaultCustomer audience = new DefaultCustomer(map.get(username).getAud_id());
                 role.setNormal(audience);
                 return true;}
+        }else {
+            role.setDescription("用户");
+            DefaultCustomer audience = new DefaultCustomer(map.get(username).getAud_id());
+            role.setNormal(audience);
+            return true;
         }
-
-        return true;
     }
     //注册函数
     //edited by dean
@@ -91,9 +105,8 @@ public class User {
                 {
                     System.out.println("请输入您的电话");
                     String tel = scanner.next();
-                    System.out.println("是否订阅VIP服务：1、是  2、否");
-                    String type=scanner.next();
-                    map.put(name,new Auident(map.size()+1,name,tel,type,password));
+                    save(map.size()+1,name,tel,"User",password);
+                    map.put(name,new Auident(map.size()+1,name,tel,"User",password));
                     return true;
                 }
                 else
@@ -105,8 +118,15 @@ public class User {
             System.out.println("请输入正确长度的用户名！");
         return false;
     }
-    //保存新增用户到数据库中
-    public void save(){
+
+    public void save(int i,String name,String tel,String type, String password){
+        Auident auident = new Auident(i,name,tel,type,password);
+        if(uerdao.AddUser(auident)>0)
+            System.out.println("用户信息保存成功");
+
+    }
+    //TODO 忘记密码
+    public void forget(){
 
     }
 
