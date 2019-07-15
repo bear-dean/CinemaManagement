@@ -1,7 +1,14 @@
 # CinemaManageSystem
 项目源自大连理工大学软件学院[Java大作业](JAVA高级编程大作业.pdf)
 
-*开发环境为  InteliJ IDEA + MYSQL/SQL server *
+* 开发环境为  InteliJ IDEA + MYSQL/SQL Server *
+
+# 注意事项
+  使用mysql数据库时间存储会差13个小时，因为mysql默认时区是荷兰的，以下是修改方法：
+  1. 输入show variables like "%time_zone%";，显示当前时区。
+  2. set global time_zone = '+8:00'; 设置全局时间为东八区（+8个小时）。
+  3. set time_zone = '+8:00'; 修改当前会话的时区。
+  4. flush privileges; 刷新一下使改动立即生效。
 
 ## 项目简介
 能够实现电影院的影片管理，有哪些影片上映和即将下架，以及每个影厅的座位数和空座数。实现观众买票和选座管理，能够实现自动选座和手工选座两种功能。
